@@ -4,7 +4,7 @@
 # import requests and beautifulsoup4 modules
 import requests, bs4
 from datetime import datetime as dt, date
-'''from slackclient import slackclient'''
+from slackclient import SlackClient
 
 # gigListing & cityLink object class definitions
 class gigListing(object):
@@ -89,42 +89,53 @@ def createGigEntries(cityIndex, cityURL, gigTitleList, gigDateList, gigLinkList)
 		x+=1
 	return
 
+# filtering the overallGigsList down based on current date and common s(c|p)am titles
+def filterGigEntries(overallGigsList):
+	postFilterGigsList = []
+	for i in overallGigsList:
+		iDateYear = i.date[2:4]
+		iDateMonth = i.date[5:7]
+		iDateDay = i.date[8:10]
+		iDate = str(iDateMonth) + "/" + str(iDateDay) + "/" + str(iDateYear)
+		a = dt.strptime(str(iDate), "%m/%d/%y")
+		b = dt.strptime(date.today().strftime("%m/%d/%y"), "%m/%d/%y")
+		if a >= b:
+			postFilterGigsList.append(i)
+	for i in postFilterGigsList:
+		if ("Earn" or "Paid" or "Free" or "spots") in i.title:
+			postFilterGigsList.remove(i)
+	return postFilterGigsList
+
 # main driver
 overallGigsList = []
-postFilterGigsList = []
 cityIndex = 1
 overallLinkList = initializeUSLinks()
 filteredLinkList = linkFilter(overallLinkList)
 scrapeFile = open('scrapeAttempt.txt', 'w')
 scrapeFile.write("EntryID,Timestamp,Title,Link\n")
+
 for a in filteredLinkList:
 	cityURL, gigTitleList, gigDateList, gigLinkList = downloadGigs(a.link)
 	createGigEntries(cityIndex, cityURL, gigTitleList, gigDateList, gigLinkList)
 	print("Progress: " + str(round(cityIndex/len(filteredLinkList)*100,2)) + "%")
 	cityIndex += 1
-print(len(overallGigsList))
-for i in overallGigsList:
-	iDateYear = i.date[2:4]
-	iDateMonth = i.date[5:7]
-	iDateDay = i.date[8:10]
-	iDate = str(iDateMonth) + "/" + str(iDateDay) + "/" + str(iDateYear)
-	a = dt.strptime(str(iDate), "%m/%d/%y")
-	b = dt.strptime(date.today().strftime("%m/%d/%y"), "%m/%d/%y")
-	if a >= b:
-		postFilterGigsList.append(i)
+
+postFilterGigsList = filterGigEntries(overallGigsList)
+
 for i in postFilterGigsList:
 	scrapeFile.write(i.entryID + ", " + i.date[0:11] + ", " + i.title + ", " + i.link + "\n")
 print("Process Complete. Check scrapeAttempt.txt in your local directory for gig list.")
 
 
-''' #initialize Slack Bot
-SLACK_TOKEN = "xoxp-62700144342-62708409989-62699012484-151adf3f90"
+ #initialize Slack Bot
+SLACK_TOKEN = "redacting for now so slack doesn't de-activate token"
 SLACK_CHANNEL = "#gigs"
 
 sc = SlackClient(SLACK_TOKEN)
-desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["bart_dist"], result["name"], result["url"])
-sc.api_call(
-	"chat.postMessage", channel=SLACK_CHANNEL, text=desc,
-	username='pybot', icon_emoji=':robot_face:'
+for i in postFilterGigsList:
+	desc = "{0} | {1} | <{2}>".format(i.date, i.title, i.link)
+	sc.api_call(
+		"chat.postMessage", channel=SLACK_CHANNEL, text=desc,
+		username='pybot', icon_emoji=':robot_face:'
 	)
-'''
+
