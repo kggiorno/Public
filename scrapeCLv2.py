@@ -3,6 +3,8 @@
 
 #import requests and beautifulsoup4 modules
 import requests, bs4
+from time import gmtime, strftime
+
 
 # gigListing & cityLink object class definitions
 class gigListing(object):
@@ -32,22 +34,22 @@ def initializeUSLinks():
 
 def linkFilter(overallLinkList):
 	statesList = []
-	state = input("Please enter the exact name of a State you would like to include in your craigslist search: ")
-	statesList.append(state)
-	addCheck = input("Do you want to add another state? Enter Y or N: ")
-	while addCheck == "Y":
-		state = input("Please enter the exact name of a State you would like to include in your craigslist search: ")
+	query1 = input("Would you like to search all states? Enter Y or N: ")
+	if query1 == "Y":
+		return overallLinkList
+	else:
+		state = input("Please enter the exact name of the State you would like to include in your craigslist search: ")
 		statesList.append(state)
 		addCheck = input("Do you want to add another state? Enter Y or N: ")
-	filteredLinkList = []
-	for i in overallLinkList:
-		if i.state in statesList:
-			filteredLinkList.append(i)
-	return filteredLinkList
-
-
-
-
+		while addCheck == "Y":
+			state = input("Please enter the exact name of a State you would like to include in your craigslist search: ")
+			statesList.append(state)
+			addCheck = input("Do you want to add another state? Enter Y or N: ")
+		filteredLinkList = []
+		for i in overallLinkList:
+			if i.state in statesList:
+				filteredLinkList.append(i)
+		return filteredLinkList
 
 # scrape and parse of craigslist/cpg page, extend to multiple cities soon
 def downloadGigs(cityPartialURL):
@@ -67,7 +69,10 @@ def downloadGigs(cityPartialURL):
 	for i in gigDates:
 		gigDateList.append(i['datetime'])
 	for i in gigLinks:
-		gigLinkList.append('https://' + cityPartialURL + str(i['href']))
+		if 'craigslist' in str(i['href']):
+			gigLinkList.append('https://' + str(i['href']))
+		else:
+			gigLinkList.append('https://' + cityPartialURL + str(i['href']))
 	return (cityURL, gigTitleList, gigDateList, gigLinkList)
 
 # creation of gigListing objects from parsed info lists, and creation of overall list to store gig objects
@@ -89,10 +94,13 @@ overallGigsList = []
 cityIndex = 1
 overallLinkList = initializeUSLinks()
 filteredLinkList = linkFilter(overallLinkList)
+scrapeFile = open('scrapeAttempt.txt', 'w')
+scrapeFile.write("EntryID,Timestamp,Title,Link\n")
 for a in filteredLinkList:
 	cityURL, gigTitleList, gigDateList, gigLinkList = downloadGigs(a.link)
 	createGigEntries(cityIndex, cityURL, gigTitleList, gigDateList, gigLinkList)
 	print("Progress: " + str(round(cityIndex/len(filteredLinkList)*100,2)) + "%")
 	cityIndex += 1
 for i in overallGigsList:
-	print(i.entryID + " | Timestamp: " + i.date + " | Title: " + i.title + " | Link: " + i.link)
+	scrapeFile.write(i.entryID + ", " + i.date + ", " + i.title + ", " + i.link + "\n")
+print("Process Complete. Check scrapeAttempt.txt in your local directory for gig list.")
