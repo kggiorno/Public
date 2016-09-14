@@ -1,0 +1,6 @@
+Retrieving gigs from http://austin.craigslist.org/search/cpg... Progress: 0.0 / 100
+Retrieving gigs from http://charleston.craigslist.org/search/cpg... Progress: 16.67 / 100
+Retrieving gigs from http://newyork.craigslist.org/search/cpg... Progress: 33.33 / 100
+Retrieving gigs from http://denver.craigslist.org/search/cpg... Progress: 50.0 / 100
+Retrieving gigs from http://sandiego.craigslist.org/search/cpg... Progress: 66.67 / 100
+Retrieving gigs from http://jacksonville.craigslist.org/search/cpg... Progress: 83.33 / 100
