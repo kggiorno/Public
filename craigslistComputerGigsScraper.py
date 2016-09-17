@@ -65,7 +65,7 @@ def filterSpamGigsList(filteredDateList):
     return filteredDateList
 
 def printGigsList(filteredSpamList):
-    print('ID | | Date | Name | Link')
+    print('ID | Date | Name | Link')
     for i in filteredSpamList:
         print(i['id'],' | ',i['datetime'],' | ',i['name'],' | ',i['url'])
 
