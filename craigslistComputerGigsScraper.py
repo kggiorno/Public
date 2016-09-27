@@ -9,7 +9,25 @@ except ImportError:
 
 def defineCities():
     urlList = []
-    citiesList = ['atlanta','tallahassee', 'chattanooga', 'myrtlebeach', 'houston', 'easttexas', 'santabarbara', 'norfolk', 'sandiego', 'newjersey', 'fresno', 'annapolis', 'montana', 'waco', 'neworleans', 'lasvegas', 'spokane', 'phoenix', 'tampa', 'milwaukee', 'dallas', 'newhaven', 'newyork', 'daytona', 'sd', 'rochester', 'detroit', 'richmond', 'philadelphia', 'florence', 'hartford', 'columbia', 'sfbay', 'denver', 'raleigh', 'saltlakecity', 'charlottesville', 'amarillo', 'iowacity', 'greenville', 'collegestation', 'boone', 'albuquerque', 'omaha', 'tricities', 'lexington','charlestonwv', 'savannah', 'cleveland', 'bend', 'madison', 'charleston', 'asheville', 'albany', 'harrisburg', 'staugustine', 'columbus', 'sacramento', 'lafayette', 'pennstate', 'jerseyshore', 'fortcollins', 'tucson', 'washingtondc', 'baltimore', 'indianapolis', 'austin', 'oklahomacity', 'birmingham', 'gainesville', 'delaware', 'jackson', 'longisland','provo',  'gulfport', 'seattle', 'minneapolis', 'athensga', 'louisville', 'portland', 'orangecounty', 'miami', 'boston', 'jacksonville','orlando','knoxville', 'boulder','chicago', 'vermont', 'reno','cincinnati','nashville', 'charlotte', 'wyoming','maine', 'florencesc', 'sanantonio', 'losangeles', 'augusta', 'honolulu', 'fortlauderdale']
+    citiesList = ['atlanta','tallahassee', 'chattanooga', 'myrtlebeach', 'houston', 
+                  'easttexas', 'santabarbara', 'norfolk', 'sandiego', 'newjersey', 
+                  'fresno', 'annapolis', 'montana', 'waco', 'neworleans', 'lasvegas', 
+                  'spokane', 'phoenix', 'tampa', 'milwaukee', 'dallas', 'newhaven', 
+                  'newyork', 'daytona', 'sd', 'rochester', 'detroit', 'richmond', 
+                  'philadelphia', 'florence', 'hartford', 'columbia', 'sfbay', 
+                  'denver', 'raleigh', 'saltlakecity', 'charlottesville', 'amarillo', 
+                  'iowacity', 'greenville', 'collegestation', 'boone', 'albuquerque', 
+                  'omaha', 'tricities', 'lexington','charlestonwv', 'savannah', 
+                  'cleveland', 'bend', 'madison', 'charleston', 'asheville', 'albany', 
+                  'harrisburg', 'staugustine', 'columbus', 'sacramento', 'lafayette', 
+                  'pennstate', 'jerseyshore', 'fortcollins', 'tucson', 'washingtondc', 
+                  'baltimore', 'indianapolis', 'austin', 'oklahomacity', 'birmingham', 
+                  'gainesville', 'delaware', 'jackson', 'longisland','provo',  
+                  'gulfport', 'seattle', 'minneapolis', 'athensga', 'louisville', 
+                  'portland', 'orangecounty', 'miami', 'boston', 'jacksonville',
+                  'orlando','knoxville', 'boulder','chicago', 'vermont', 'reno',
+                  'cincinnati','nashville', 'charlotte', 'wyoming','maine', 'florencesc', 
+                  'sanantonio', 'losangeles', 'augusta', 'honolulu', 'fortlauderdale']
     #debug citiesList = ['austin','charleston','seattle']
     for city in citiesList:
         cityURL = 'http://%s.craigslist.org/search/cpg' % city
@@ -55,7 +73,9 @@ def filterDateGigsList(gigsList):
 
 def filterSpamGigsList(filteredDateList):
     index = 0
-    spamTerms = ['paid','hire','work','review','survey','home','rent','cash','pay','flex','facebook','sex','$$$','boss','secretary','loan','supplemental','income','sales','dollars','money']
+    spamTerms = ['paid','hire','work','review','survey','home','rent','cash','pay',
+                 'flex','facebook','sex','$$$','boss','secretary','loan','supplemental',
+                 'income','sales','dollars','money']
     for i in filteredDateList:
         for y in spamTerms:
             if y in i['name'].lower():
