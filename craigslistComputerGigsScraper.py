@@ -9,31 +9,8 @@ except ImportError:
 
 def defineCities():
     urlList = []
-<<<<<<< HEAD
     citiesList = ['atlanta','tallahassee', 'chattanooga', 'myrtlebeach', 'houston', 'easttexas', 'santabarbara', 'norfolk', 'sandiego', 'newjersey', 'fresno', 'annapolis', 'montana', 'waco', 'neworleans', 'lasvegas', 'spokane', 'phoenix', 'tampa', 'milwaukee', 'dallas', 'newhaven', 'newyork', 'daytona', 'sd', 'rochester', 'detroit', 'richmond', 'philadelphia', 'florence', 'hartford', 'columbia', 'sfbay', 'denver', 'raleigh', 'saltlakecity', 'charlottesville', 'amarillo', 'iowacity', 'greenville', 'collegestation', 'boone', 'albuquerque', 'omaha', 'tricities', 'lexington','charlestonwv', 'savannah', 'cleveland', 'bend', 'madison', 'charleston', 'asheville', 'albany', 'harrisburg', 'staugustine', 'columbus', 'sacramento', 'lafayette', 'pennstate', 'jerseyshore', 'fortcollins', 'tucson', 'washingtondc', 'baltimore', 'indianapolis', 'austin', 'oklahomacity', 'birmingham', 'gainesville', 'delaware', 'jackson', 'longisland','provo',  'gulfport', 'seattle', 'minneapolis', 'athensga', 'louisville', 'portland', 'orangecounty', 'miami', 'boston', 'jacksonville','orlando','knoxville', 'boulder','chicago', 'vermont', 'reno','cincinnati','nashville', 'charlotte', 'wyoming','maine', 'florencesc', 'sanantonio', 'losangeles', 'augusta', 'honolulu', 'fortlauderdale']
     #citiesList = ['austin','charleston','seattle']
-=======
-    citiesList = ['atlanta','tallahassee', 'chattanooga', 'myrtlebeach', 'houston', 
-                  'easttexas', 'santabarbara', 'norfolk', 'sandiego', 'newjersey', 
-                  'fresno', 'annapolis', 'montana', 'waco', 'neworleans', 'lasvegas', 
-                  'spokane', 'phoenix', 'tampa', 'milwaukee', 'dallas', 'newhaven', 
-                  'newyork', 'daytona', 'sd', 'rochester', 'detroit', 'richmond', 
-                  'philadelphia', 'florence', 'hartford', 'columbia', 'sfbay', 
-                  'denver', 'raleigh', 'saltlakecity', 'charlottesville', 'amarillo', 
-                  'iowacity', 'greenville', 'collegestation', 'boone', 'albuquerque', 
-                  'omaha', 'tricities', 'lexington','charlestonwv', 'savannah', 
-                  'cleveland', 'bend', 'madison', 'charleston', 'asheville', 'albany', 
-                  'harrisburg', 'staugustine', 'columbus', 'sacramento', 'lafayette', 
-                  'pennstate', 'jerseyshore', 'fortcollins', 'tucson', 'washingtondc', 
-                  'baltimore', 'indianapolis', 'austin', 'oklahomacity', 'birmingham', 
-                  'gainesville', 'delaware', 'jackson', 'longisland','provo',  
-                  'gulfport', 'seattle', 'minneapolis', 'athensga', 'louisville', 
-                  'portland', 'orangecounty', 'miami', 'boston', 'jacksonville',
-                  'orlando','knoxville', 'boulder','chicago', 'vermont', 'reno',
-                  'cincinnati','nashville', 'charlotte', 'wyoming','maine', 'florencesc', 
-                  'sanantonio', 'losangeles', 'augusta', 'honolulu', 'fortlauderdale']
-    #debug citiesList = ['austin','charleston','seattle']
->>>>>>> origin/master
     for city in citiesList:
         cityURL = 'http://%s.craigslist.org/search/cpg' % city
         urlList.append(cityURL)
@@ -78,7 +55,6 @@ def filterDateGigsList(gigsList):
     return filteredDateList
 
 def filterSpamGigsList(filteredDateList):
-<<<<<<< HEAD
     def is_spam(value):
         spamTerms = ['paid','hire','work','review','survey','home','rent','cash',
                      'pay','flex','facebook','sex','$$$','boss','secretary','loan',
@@ -89,19 +65,6 @@ def filterSpamGigsList(filteredDateList):
                 setSpam = True
         return setSpam
     return [i for i in filteredDateList if not is_spam(i['name'])]
-=======
-    index = 0
-    spamTerms = ['paid','hire','work','review','survey','home','rent','cash','pay',
-                 'flex','facebook','sex','$$$','boss','secretary','loan','supplemental',
-                 'income','sales','dollars','money']
-    for i in filteredDateList:
-        for y in spamTerms:
-            if y in i['name'].lower():
-                filteredDateList.pop(index)
-                break        
-        index += 1
-    return filteredDateList
->>>>>>> origin/master
 
 def printGigsList(filteredSpamList):
     print('ID | Date | Name | Link')
