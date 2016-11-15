@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 # Path for output file.
-PATH = '/Users/kggiorno/documents/proglearn/adwordsreporting/ADRCampaignStats.csv'
+PATH = '/CampaignStats.csv'
 
 
 def main(client, path):
@@ -28,7 +28,7 @@ def compileCampStats(path):
   df = pd.read_csv(path,skiprows=[0])
   df.head()
   table = pd.pivot_table(df,index="Campaign",values=["Impressions","Clicks","Cost","Conversions"],aggfunc=np.sum)
-  table.to_csv("ADRCompiledCampStats.csv",sep='\t', encoding='utf-8')
+  table.to_csv("CompiledCampStats.csv",sep='\t', encoding='utf-8')
 
 if __name__ == '__main__':
   # Initialize client object.
