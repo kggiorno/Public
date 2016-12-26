@@ -1,0 +1,17 @@
+df.head() is first 5 values
+df.head(x) is first x values
+
+df.tail() is last 5 values
+df.tail(x) is last x values
+
+df = df.set_index('x') 
+where x is column name sets index column to column x
+
+df[x].tolist() where x is a column will give python list of that column's series of values 
+
+df.describe() shows count, mean, std, min, 25%, 50%, 75%, max
+
+df.dropna(inplace=True) to drop not available data
+
+df.fillna(method='bfill') to back fill data, method='ffill' to forward fill data
+
