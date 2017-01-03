@@ -1,7 +1,12 @@
-import settings
 import oauth2
 import urllib.parse as urlparse
 import json
+import settings
+from user import User
+from database import Database
+
+Database.initialize(user='postgres', password='admin', host='localhost', database='learning')
+
 
 consumer = oauth2.Consumer(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
 client = oauth2.Client(consumer)
@@ -25,6 +30,13 @@ response, content = client.request(settings.ACCESS_TOKEN_URL, 'POST')
 access_token = dict(urlparse.parse_qsl(content.decode('utf-8')))
 
 print(access_token)
+
+email = input("Enter your email: ")
+first_name = input("Enter your first name: ")
+last_name = input("Enter your last name: ")
+
+user = User(email, first_name, last_name, access_token['oauth_token'], access_token['oauth_token_secret'], None)
+user.save_to_db()
 
 authorized_token = oauth2.Token(access_token['oauth_token'], access_token['oauth_token_secret'])
 authorized_client = oauth2.Client(consumer, authorized_token)
