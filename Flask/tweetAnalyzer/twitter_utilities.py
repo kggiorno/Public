@@ -16,9 +16,12 @@ def get_request_token():
 
 def get_oauth_verifier(request_token):
 	print("Navigate to the following site to retrieve the authorization pin:")
-	print("{}?oauth_token={}".format(settings.AUTHORIZATION_URL, request_token['oauth_token']))
+	print(get_oauth_verifier_url(request_token))
 
 	return input("Enter the authorization pin: ")
+
+def get_oauth_verifier_url(request_token):
+	return ("{}?oauth_token={}".format(settings.AUTHORIZATION_URL, request_token['oauth_token']))
 
 def get_access_token(request_token, oauth_verifier):
 	token = oauth2.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
