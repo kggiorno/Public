@@ -7,7 +7,13 @@
 </head>
 
 <body>
+	<h2>You are logged in as:</h2>
 	{{ user.screen_name }}
+	<form action="{{ url_for('search') }}">
+		<label for="q">Twitter Search: </label>
+		<input type="text" name="q" id="q" placeholder="Your search term">
+		<button type="submit">Submit</button>
+	</form>
 </body>
 
 
