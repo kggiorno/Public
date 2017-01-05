@@ -4,3 +4,5 @@ __pycache__/settings.cpython-34.pyc
 .DS_Store
 
 .scrapeCLv3.py.swp
+
+Flask/tweetAnalyzer/__pycache__/settings.cpython-34.pyc

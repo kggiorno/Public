@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+	<link rel="styleshoot" href="{{ url_for('static', filename='css/style.css') }}">
+	<title>Search Results</title>
+</head>
+
+<body>
+	<div class="container">
+		<h1 style="margin-top:1rem;">Search Results:</h1>
+		<ul class="list-group">
+			{% for tweet in content %}
+				<li class="list-group item">{{ tweet }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+
+
+</html>
