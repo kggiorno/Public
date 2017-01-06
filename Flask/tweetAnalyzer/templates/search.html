@@ -11,8 +11,15 @@
 	<div class="container">
 		<h1 style="margin-top:1rem;">Search Results:</h1>
 		<ul class="list-group">
-			{% for tweet in content %}
-				<li class="list-group item">{{ tweet }}</li>
+			{% set css_class = 'list-group-item-info' %}
+
+			{% for item in content %}
+				{% if item['label'] == 'neg' %}
+					{% set css_class = 'list-group-item-danger' %} 
+				{% elif item['label'] == 'pos' %}
+					{% set css_class = 'list-group-item-success' %} 
+				{% endif %}
+				<li class="list-group-item {{ css_class }}">{{ item['tweet'] }}</li>
 			{% endfor %}
 		</ul>
 	</div>
